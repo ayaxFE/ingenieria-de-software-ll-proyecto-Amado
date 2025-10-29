@@ -4,8 +4,8 @@
  */
 package com.mycompany.gestorturnos;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -13,14 +13,34 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Turnos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Turnos
-     */
-    public Turnos() {
-        initComponents();
-        setLocationRelativeTo(null);//ubicamos programa en centro de pantalla 
+    private static Paciente getPaciente() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    ArrayList<Turno> listaTurnos = new ArrayList<>();
+    DefaultTableModel modelo;
+
+    public Turnos() {
+        initComponents();
+        modelo = (DefaultTableModel) Tabla.getModel(); // tu tabla
+        modelo.setRowCount(0);
+    }
+
+    public void agregarTurno(Turno turno) {
+        listaTurnos.add(turno);
+        
+        Paciente paciente = Turnos.getPaciente();
+        
+        modelo.addRow(new Object[]{
+            paciente.getNombreApellido(), 
+            paciente.getDni(),            
+            paciente.getObraSocial(),
+            paciente.getHoraTurno(),     
+            paciente.getDiaMes() 
+    });
+    }
+             
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,7 +53,7 @@ public class Turnos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Tableta = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         Ingreseturno = new javax.swing.JButton();
         CancelarTurno = new javax.swing.JButton();
         ModificarTurno = new javax.swing.JButton();
@@ -64,7 +84,7 @@ public class Turnos extends javax.swing.JFrame {
             .addGap(0, 4, Short.MAX_VALUE)
         );
 
-        Tableta.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -75,7 +95,7 @@ public class Turnos extends javax.swing.JFrame {
                 "Nombre y Apellido", "DNI", "Obra social", "Hora de turno ", "Dia/mes "
             }
         ));
-        jScrollPane2.setViewportView(Tableta);
+        jScrollPane2.setViewportView(Tabla);
 
         Ingreseturno.setText("Ingrese Turno");
         Ingreseturno.addActionListener(new java.awt.event.ActionListener() {
@@ -163,12 +183,12 @@ public class Turnos extends javax.swing.JFrame {
                                       
         IngresarTurno mp = new IngresarTurno();
         mp.setVisible(true);
-        this.dispose();
+        
     
     }//GEN-LAST:event_IngreseturnoActionPerformed
 
     private void CancelarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarTurnoActionPerformed
-        int row = Tableta.getSelectedRow();
+        int row = Tabla.getSelectedRow();
 
         if (row < 0) {
             JOptionPane.showMessageDialog(this,
@@ -176,7 +196,7 @@ public class Turnos extends javax.swing.JFrame {
                     "seleccione un reglon porfavor",
                     JOptionPane.ERROR_MESSAGE);
         } else {
-            DefaultTableModel model = (DefaultTableModel) Tableta.getModel();
+            DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
             model.removeRow(row);
           }
     }//GEN-LAST:event_CancelarTurnoActionPerformed
@@ -234,19 +254,7 @@ public class Turnos extends javax.swing.JFrame {
  * @param paciente El objeto Paciente con los datos del turno a ingresar.
  */
 public void agregarPacienteATabla(Paciente paciente) {
-    // 1. Obtener el modelo de la tabla
-    DefaultTableModel modelo = (DefaultTableModel) Tableta.getModel();
-    
-    // 2. Crear un array de objetos con los datos del paciente en el orden de las columnas
-    Object[] fila = new Object[5];
-    fila[0] = paciente.getNombreApellido(); // "Nombre y Apellido"
-    fila[1] = paciente.getDni();             // "DNI"
-    fila[2] = paciente.getObraSocial();      // "Obra social"
-    fila[3] = paciente.getHoraTurno();       // "Hora de turno"
-    fila[4] = paciente.getDiaMes();          // "Dia/mes"
-    
-    // 3. Agregar la fila al modelo
-    modelo.addRow(fila);
+   
 }
 
 // Además, debes modificar el método IngreseturnoActionPerformed para que se vea así:
@@ -257,7 +265,7 @@ public void agregarPacienteATabla(Paciente paciente) {
     private javax.swing.JButton CancelarTurno;
     private javax.swing.JButton Ingreseturno;
     private javax.swing.JButton ModificarTurno;
-    private javax.swing.JTable Tableta;
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton jButton8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

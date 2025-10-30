@@ -13,13 +13,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Turnos extends javax.swing.JFrame {
 
-    private static Paciente getPaciente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
 
     ArrayList<Turno> listaTurnos = new ArrayList<>();
     DefaultTableModel modelo;
 
+    
     public Turnos() {
         initComponents();
         modelo = (DefaultTableModel) Tabla.getModel(); // tu tabla
@@ -29,7 +28,7 @@ public class Turnos extends javax.swing.JFrame {
     public void agregarTurno(Turno turno) {
         listaTurnos.add(turno);
         
-        Paciente paciente = Turnos.getPaciente();
+        Paciente paciente = turno.getPaciente();
         
         modelo.addRow(new Object[]{
             paciente.getNombreApellido(), 
@@ -181,8 +180,8 @@ public class Turnos extends javax.swing.JFrame {
 
     private void IngreseturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngreseturnoActionPerformed
                                       
-        IngresarTurno mp = new IngresarTurno();
-        mp.setVisible(true);
+        IngresarTurno mp = new IngresarTurno(this);
+        
         
     
     }//GEN-LAST:event_IngreseturnoActionPerformed
